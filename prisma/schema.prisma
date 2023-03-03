@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  nombre   String? //Puede ser nulo
+  role     Role    @default(USER)
+  password String
+  ordenes  Orden[]
+}
+
+model Videojuego {
+  id          Int                 @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  publicar    Boolean             @default(true)
+  precio      Decimal             @db.Decimal(10, 2)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @default(now()) @updatedAt
+  generos     Genero[]
+  ordenes     OrdenOnVideojuego[]
+}
+
+model Genero {
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  updatedAt   DateTime     @default(now()) @updatedAt
+  videojuegos Videojuego[]
+}
+
+model Orden {
+  id          Int                 @id @default(autoincrement())
+  fechaOrden  DateTime            @default(now())
+  usuario     Usuario             @relation(fields: [usuarioId], references: [id])
+  usuarioId   Int
+  updatedAt   DateTime            @default(now()) @updatedAt
+  videojuegos OrdenOnVideojuego[]
+}
+
+model OrdenOnVideojuego {
+  orden        Orden      @relation(fields: [ordenId], references: [id]) //relacion
+  ordenId      Int
+  videojuego   Videojuego @relation(fields: [videojuegoId], references: [id])
+  videojuegoId Int
+  cantidad     Int
+  updatedAt    DateTime   @default(now()) @updatedAt
+
+  @@id([ordenId, videojuegoId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
