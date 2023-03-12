@@ -11,6 +11,7 @@ const videojuegosRouter = require("./routes/videojuegoRoutes");
 const ordenRouter = require("./routes/ordenRoutes");
 const generoRouter = require("./routes/generoRoutes");
 const rolRouter = require("./routes/rolRoutes");
+const usuarioRouter = require("./routes/usuarioRoutes");
 
 // Acceder a la configuracion del archivo .env
 dotEnv.config();
@@ -32,6 +33,8 @@ app.use("/videojuego/", videojuegosRouter);
 app.use("/orden/", ordenRouter);
 app.use("/genero/", generoRouter);
 app.use("/rol/", rolRouter); 
+app.use("/usuario/", usuarioRouter);
+
 
 // Servidor
 app.listen(port, () => {
