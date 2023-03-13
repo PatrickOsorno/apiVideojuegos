@@ -1,14 +1,19 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-module.exports.get = async (req, res) => {
+module.exports.post = async (req, res) => {
   let credenciales = req.body;
-  let usuario = await prisma.usuario.findMany({
+  let usuario = await prisma.usuario.findFirst({
     where: {
       email: { equals: credenciales.email },
       password: { equals: credenciales.password },
     },
-  })
-  res.json(usuario.length === 1 ? usuario : null);
-  
+  });
+
+  res.json(
+    usuario.email === credenciales.email &&
+      usuario.password === credenciales.password
+      ? usuario
+      : null
+  );
 };

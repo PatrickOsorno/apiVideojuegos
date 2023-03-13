@@ -33,7 +33,7 @@ app.use("/videojuego/", videojuegosRouter);
 app.use("/orden/", ordenRouter);
 app.use("/genero/", generoRouter);
 app.use("/rol/", rolRouter); 
-app.use("/usuario/", usuarioRouter);
+app.use("/usuario/login", usuarioRouter);
 
 
 // Servidor
