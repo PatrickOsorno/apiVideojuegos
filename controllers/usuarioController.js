@@ -9,6 +9,7 @@ module.exports.post = async (req, res) => {
       password: credenciales.password,
     },
   });
+  console.log(usuario)
 
   res.json(
     usuario.email === credenciales.email &&
