@@ -5,7 +5,7 @@ module.exports.post = async (req, res) => {
   let credenciales = req.body;
 
   res.json(
-    await prisma.usuario.findMany({
+    await prisma.usuario.findFirst({
       where: {
         email: {
           equals: credenciales.email,
@@ -14,6 +14,10 @@ module.exports.post = async (req, res) => {
           equals: credenciales.password,
         },
       },
+      select:{
+        email:true,
+        password:true
+      }
     })
   );
 };
