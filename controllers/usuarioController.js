@@ -5,16 +5,14 @@ module.exports.post = async (req, res) => {
   let credenciales = req.body;
 
   res.json(
-    await prisma.usuario.findFirst({
+    await prisma.usuario.findMany({
       where: {
         email: {
           equals: credenciales.email,
         },
-        AND:{
-          password:{
-            equals: credenciales.password
-          }
-        }
+        password: {
+          equals: credenciales.password,
+        },
       },
     })
   );
