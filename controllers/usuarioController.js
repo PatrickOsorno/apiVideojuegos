@@ -7,8 +7,11 @@ module.exports.post = async (req, res) => {
   res.json(
     await prisma.usuario.findFirst({
       where: {
-        email: credenciales.email,
-        password: credenciales.password,
+        AND:{
+          email: credenciales.email,
+          password: credenciales.password,
+        }
+       
       },
     })
   );
