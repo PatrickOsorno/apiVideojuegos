@@ -15,8 +15,10 @@ module.exports.post = async (req, res) => {
         },
       },
       select:{
+        nombre:true,
         email:true,
-        password:true
+        password:true,
+        role:true,
       }
     })
   );
